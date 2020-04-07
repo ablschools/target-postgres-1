@@ -119,9 +119,10 @@ def persist_lines(config, lines):
 
     for (stream_name, count) in row_count.items():
         try:
+            logger.info("Attempting to merge {}".format(stream_name))
             stream_to_sync[stream_name].merge_table()
         except:
-            logger.error('{} stream not able to merge'.format(stream_name))
+            logger.error("{} stream not able to merge".format(stream_name))
 
     return state
 

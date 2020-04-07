@@ -118,7 +118,10 @@ def persist_lines(config, lines):
             stream_to_sync[stream_name].load_csv(csv_files_to_load[stream_name], count, create_table)
 
     for (stream_name, count) in row_count.items():
-        stream_to_sync[stream_name].merge_table()
+        try:
+            stream_to_sync[stream_name].merge_table()
+        except:
+            logger.error('{} stream not able to merge'.format(stream_name))
 
     return state
 
